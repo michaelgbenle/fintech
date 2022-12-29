@@ -1,6 +1,14 @@
 package middleware
 
-func AuthorizeStudent(findStudentByEmail func(string) (*model.Student, error), tokenInBlacklist func(*string) bool) gin.HandlerFunc {
+import (
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/gin-gonic/gin"
+)
+
+func AuthorizeUser(findUserByEmail func(string) (*model.Student, error), tokenInBlacklist func(*string) bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		var student *model.Student
