@@ -26,18 +26,16 @@ func SetupRouter(handler *api.HTTPHandler, repository ports.Repository) *gin.Eng
 	{
 		r.GET("/ping", handler.PingHandler)
 		r.POST("/register", handler.SignUpHandler)
-		r.POST("/student_login", handler.LoginStudentHandler)
-		r.POST("/login/phone", handler.PhoneLoginStudentHandler)
-		r.GET("/get_high_schools", handler.GetHighSchools)
-		r.POST("/create_high_schools", handler.CreateHighSchool)
+		r.POST("/login", handler.LoginHandler)
 	}
 
 	// authorizeStudent authorizes all authorized student handlers
-	authorizeStudent := r.Group("/student")
-	authorizeStudent.Use(middleware.AuthorizeStudent(repository.FindStudentByEmail, repository.TokenInBlacklist))
+	authorizeUser := r.Group("/user")
+	authorizeUser.Use(middleware.AuthorizeStudent(repository.FindUserByEmail, repository.TokenInBlacklist))
 	{
-		authorizeStudent.PUT("update_profile", handler.StudentUpdateHandler)
-		authorizeStudent.GET("get_profile", handler.StudentProfileHandler)
+		authorizeUser.PATCH("credit", handler.CreditHandler)
+		authorizeUser.PATCH("debit", handler.DebitHandler)
+		authorizeUser.GET("transactions", handler.TransactionsHandler)
 
 	}
 
