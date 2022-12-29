@@ -6,8 +6,8 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/api"
+	"github.com/michaelgbenle/fintech/internal/middleware"
 	"github.com/michaelgbenle/fintech/internal/ports"
-	
 )
 
 //SetupRouter is where router endpoints are called
