@@ -31,7 +31,7 @@ func SetupRouter(handler *api.HTTPHandler, repository ports.Repository) *gin.Eng
 
 	// authorizeStudent authorizes all authorized student handlers
 	authorizeUser := r.Group("/user")
-	authorizeUser.Use(middleware.AuthorizeStudent(repository.FindUserByEmail, repository.TokenInBlacklist))
+	authorizeUser.Use(middleware.AuthorizeUser(repository.FindUserByEmail, repository.TokenInBlacklist))
 	{
 		authorizeUser.PATCH("credit", handler.CreditHandler)
 		authorizeUser.PATCH("debit", handler.DebitHandler)
