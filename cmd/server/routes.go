@@ -39,13 +39,5 @@ func SetupRouter(handler *api.HTTPHandler, repository ports.Repository) *gin.Eng
 
 	}
 
-	authorizeMobileLogin := r.Group("/mobile")
-	authorizeMobileLogin.Use(middleware.AuthorizeMobileLogin(repository.FindStudentByPhone, repository.TokenInBlacklist))
-	{
-		authorizeMobileLogin.POST("/phone/verify", handler.VerifyPhoneLoginStudentHandler)
-	}
-
-	//router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
 	return router
 }
