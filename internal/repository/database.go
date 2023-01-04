@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/lib/pq"
+	"github.com/michaelgbenle/fintech/internal/models"
 	"github.com/michaelgbenle/fintech/internal/ports"
 )
 
@@ -28,7 +29,7 @@ func Initialize(dbURI string) (*gorm.DB, error) {
 		log.Fatal(err)
 
 	}
-	conn.AutoMigrate()
+	conn.AutoMigrate(&models.User{}, &models.Blacklist{})
 
 	return conn, nil
 }
