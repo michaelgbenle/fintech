@@ -50,7 +50,7 @@ func (p *Postgres) FindUserById(Id string) (*models.User, error) {
 	return user, nil
 }
 
-func (p *Postgres) CreateUser(user models.User)  error{
+func (p *Postgres) CreateUser(user *models.User)  error{
 	err := p.DB.Create(&user).Error
 	if err != nil {
 		log.Println("error in creating user")
