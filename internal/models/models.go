@@ -10,7 +10,7 @@ import (
 
 
 type Model struct {
-	Id 	  		string		`json:"id"`
+	Id 	  		string		`sql:"type:uuid; default:uuid_generate_v4();size:100; not null"`
 	CreatedAt 	time.Time	`json:"created_at"`
 	UpdatedAt 	time.Time	`json:"updated_at"`
 	DeletedAt 	time.Time	`json:"deleted_at"`
