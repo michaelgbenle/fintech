@@ -29,7 +29,7 @@ func SetupRouter(handler *api.HTTPHandler, repository ports.Repository) *gin.Eng
 		r.POST("/login", handler.LoginHandler)
 	}
 
-	// authorizeStudent authorizes all authorized student handlers
+	// authorizeUser authorizes all authorized users handlers
 	authorizeUser := r.Group("/user")
 	authorizeUser.Use(middleware.AuthorizeUser(repository.FindUserByEmail, repository.TokenInBlacklist))
 	{

@@ -1,5 +1,10 @@
 package main
 
+import (
+	"github.com/michaelgbenle/fintech/cmd/server"
+	"github.com/michaelgbenle/fintech/internal/repository"
+)
+
 func main() {
 	//Gets the environment variables
 	env := server.InitDBParams()
