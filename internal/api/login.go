@@ -35,7 +35,7 @@ if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginReque
 }
 
 	// Generates access claims and refresh claims
-	accessClaims, refreshClaims := middleware.GenerateClaims(student.Email)
+	accessClaims, refreshClaims := middleware.GenerateClaims(user.Email)
 
 	secret := os.Getenv("JWT_SECRET")
 	accToken, err := middleware.GenerateToken(jwt.SigningMethodHS256, accessClaims, &secret)
