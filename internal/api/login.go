@@ -2,10 +2,12 @@ package api
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 	"github.com/michaelgbenle/fintech/internal/helpers"
 	"github.com/michaelgbenle/fintech/internal/middleware"
 	"github.com/michaelgbenle/fintech/internal/models"
