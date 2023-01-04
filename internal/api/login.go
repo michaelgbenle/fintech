@@ -57,6 +57,7 @@ if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginReque
 	c.Header("access_token", *accToken)
 
 	helpers.Response(c, "login successful", http.StatusOK, gin.H{
+		"user":          user,
 		"access_token":  *accToken,
 		"refresh_token": *refreshToken,
 	}, nil)

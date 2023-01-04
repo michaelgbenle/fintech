@@ -31,4 +31,7 @@ type Blacklist struct {
 }
 
 type Transaction struct {}
-type Money struct {}
+type Money struct {
+	Wallet string
+	Amount float64
+}
