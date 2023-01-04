@@ -44,5 +44,6 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 		return
 	}
 
+	//sign up successful
 	helpers.Response(c,"sign up successful", 201, nil, nil)
 }
