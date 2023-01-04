@@ -4,9 +4,9 @@ import (
 	"log"
 
 	"github.com/jinzhu/gorm"
-	"github.com/michaelgbenle/fintech/internal/ports"
-	_"github.com/lib/pq"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/lib/pq"
+	"github.com/michaelgbenle/fintech/internal/ports"
 )
 
 type Postgres struct {
