@@ -36,6 +36,7 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	
 	//create wallet for user
 	user.Wallet.AccountNos = strconv.Itoa(helpers.CreateWallet())
+	user.Wallet.Balance = 0
 
 	//save user to database
 	err = u.Repository.CreateUser(user)
