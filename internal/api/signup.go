@@ -15,7 +15,7 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 		helpers.Response(c, "error", 400, nil, []string{"invalid request"})
 		return
 	}
-//check for valid email
+	//check for valid email
 	if !user.ValidateEmail() {
 		helpers.Response(c, "error", 400, nil, []string{"invalid email"})
 		return
@@ -27,6 +27,7 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
 		return
 	}
+
 	//hash pin
 	err = user.HashPin()
 	if err != nil {
@@ -34,12 +35,12 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	}
 	
 	//create wallet for user
-	user.Wallet=strconv.Itoa( helpers.CreateWallet())
+	user.Wallet = strconv.Itoa(helpers.CreateWallet())
 
 	//save user to database
 	err = u.Repository.CreateUser(user)
 	if err != nil {
-		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
+		helpers.Response(c, "unable to sign up user", 500, nil, []string{"internal server error"})
 		return
 	}
 
