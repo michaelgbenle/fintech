@@ -6,12 +6,13 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/michaelgbenle/fintech/internal/models"
 )
 
-func AuthorizeUser(findUserByEmail func(string) (*model.Student, error), tokenInBlacklist func(*string) bool) gin.HandlerFunc {
+func AuthorizeUser(findUserByEmail func(string) (*models.User, error), tokenInBlacklist func(*string) bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		var student *model.Student
+		var student *models.User
 		var errors error
 		secret := os.Getenv("JWT_SECRET")
 		accToken := GetTokenFromHeader(c)
