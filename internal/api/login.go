@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/michaelgbenle/fintech/internal/helpers"
 	"github.com/michaelgbenle/fintech/internal/middleware"
 	"github.com/michaelgbenle/fintech/internal/models"
