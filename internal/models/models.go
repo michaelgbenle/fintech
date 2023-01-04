@@ -1,5 +1,10 @@
 package models
 
+
+type Model struct {
+	
+}
+
 type User struct {
 	FirstName string	`json:"firstname"`
 	LastName  string	`json:"lastname"`
