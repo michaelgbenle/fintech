@@ -58,3 +58,15 @@ func (p *Postgres) CreateUser(user *models.User)  error{
 	}
 return nil
 }
+func (p *Postgres) Creditwallet(money *models.Money)  (*models.Transaction,error){
+	transaction := models.Transaction{}
+	transaction.AccountNos = money.AccountNos
+	transaction.Type = "credit"
+	transaction.Success = true
+	err := p.DB.Create(&transaction).Error
+	if err != nil {
+		log.Println("error in creating user")
+		return nil,err
+	}
+	return &transaction,nil
+}
