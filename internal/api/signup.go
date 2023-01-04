@@ -30,6 +30,9 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	if err != nil {
 		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
 	}
+	
+	//create wallet for user
+	user.Wallet= helpers.CreateWallet()
 
 	helpers.Response(c, "account created successfully", 201, nil, nil)
 }

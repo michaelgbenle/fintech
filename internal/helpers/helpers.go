@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const min = 11111
-const max = 99999
+const min = 1111111111
+const max = 9999999999
 
 //Response is customized to help return all responses need
 func Response(c *gin.Context, message string, status int, data interface{}, errs []string) {
@@ -24,7 +24,7 @@ func Response(c *gin.Context, message string, status int, data interface{}, errs
 	c.JSON(status, responsedata)
 }
 
-func GenerateVerificationCode() int {
+func CreateWallet() int {
 	// set seed
 	rand.Seed(time.Now().UnixNano())
 	// generate random number
@@ -32,8 +32,5 @@ func GenerateVerificationCode() int {
 }
 
 func CompareCode(a, b int) bool {
-	if a == b {
-		return true
-	}
-	return false
+	return a == b
 }
