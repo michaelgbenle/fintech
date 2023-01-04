@@ -5,6 +5,8 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/michaelgbenle/fintech/internal/ports"
+	_"github.com/lib/pq"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type Postgres struct {
