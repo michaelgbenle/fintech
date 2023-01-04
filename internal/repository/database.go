@@ -18,7 +18,7 @@ func NewDB(DB *gorm.DB) ports.Repository {
 	}
 }
 
-//Initialize opens the database, creates jobs table if not created and populate it if its empty and returns a DB
+//Initialize opens the database, create tables if not created and populate it if its empty and returns a DB
 func Initialize(dbURI string) (*gorm.DB, error) {
 
 	conn, err := gorm.Open("postgres", dbURI)
@@ -26,7 +26,6 @@ func Initialize(dbURI string) (*gorm.DB, error) {
 		log.Fatal( err)
 
 	}
-
 	conn.AutoMigrate()
 
 	return conn, nil
