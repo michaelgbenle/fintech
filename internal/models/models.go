@@ -29,3 +29,6 @@ type Blacklist struct {
 	Token     string
 	CreatedAt string
 }
+
+type Transaction struct {}
+type Money struct {}

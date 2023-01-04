@@ -6,6 +6,7 @@ import (
 )
 
 func (u *HTTPHandler) CreditHandler(c *gin.Context) {
+	
 
 	helpers.Response(c, "account created successfully", 201, nil, nil)
 }

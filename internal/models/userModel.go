@@ -14,6 +14,7 @@ type User struct {
 	Password  string `json:"password" binding:"required"`
 	Pin       string `json:"pin" binding:"required"`
 	Wallet    string `json:"wallet"`
+	Balance   int    `json:"balance"`
 }
 
 func (user *User) HashPassword() error {
