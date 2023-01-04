@@ -33,8 +33,6 @@ func GenerateClaims(email string) (jwt.MapClaims, jwt.MapClaims) {
 	return accessClaims, refreshClaims
 }
 
-
-
 // GenerateToken generates only an access token
 func GenerateToken(signMethod *jwt.SigningMethodHMAC, claims jwt.MapClaims, secret *string) (*string, error) {
 	// Create a new token object, specifying signing method and the claims

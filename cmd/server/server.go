@@ -9,16 +9,15 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"github.com/michaelgbenle/fintech/internal/api"
 	"github.com/michaelgbenle/fintech/internal/repository"
-	"github.com/jinzhu/gorm"
 )
 
 //Run injects all dependencies needed to run the app
 func Run(db *gorm.DB, port string) {
 	newRepo := repository.NewDB(db)
-	
 
 	Handler := api.NewHTTPHandler(newRepo)
 	router := SetupRouter(Handler, newRepo)

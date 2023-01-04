@@ -34,9 +34,6 @@ func (p *Postgres) AddTokenToBlacklist(email string, token string) error {
 
 }
 
-
-
-
 func (p *Postgres) FindUserByEmail(email string) (*models.User, error) {
 	user := &models.User{}
 	if err := p.DB.Where("email = ?", email).First(&user).Error; err != nil {
