@@ -25,12 +25,12 @@ func (m *Model) BeforeCreate(tx *gorm.DB) (err error) {
 
 type User struct {
 	Model
-	FirstName string	`json:"firstname"`
-	LastName  string	`json:"lastname"`
-	Email     string	`json:"email"`
-	Password  string	`json:"password"`
-	Pin 	 string		`json:"pin"`
-	Wallet    string	`json:"wallet"`
+	FirstName 	string	`json:"firstname"`
+	LastName  	string	`json:"lastname"`
+	Email     	string	`json:"email"`
+	Password  	string	`json:"password"`
+	Pin 	 	string	`json:"pin"`
+	Wallet   	string	`json:"wallet"`
 
 }
 
