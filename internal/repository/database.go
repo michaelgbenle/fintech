@@ -27,7 +27,6 @@ func Initialize(dbURI string) (*gorm.DB, error) {
 	conn, err := gorm.Open("postgres", dbURI)
 	if err != nil {
 		log.Fatal(err)
-
 	}
 	conn.AutoMigrate(&models.User{}, &models.Blacklist{})
 
