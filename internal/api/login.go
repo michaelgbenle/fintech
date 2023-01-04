@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
 	"github.com/michaelgbenle/fintech/internal/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (u *HTTPHandler) LoginHandler(c *gin.Context) {
@@ -26,7 +27,10 @@ if userErr != nil {
 }
 
 //check if password is correct
-
+if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(studentLoginRequest.Password)); err != nil {
+	helpers.Response(c, "invalid Password", http.StatusBadRequest, nil, []string{"Bad Request"})
+	return
+}
 
 
 
