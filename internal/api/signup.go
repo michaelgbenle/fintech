@@ -1,6 +1,8 @@
 package api
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
 	"github.com/michaelgbenle/fintech/internal/models"
@@ -32,7 +34,7 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	}
 	
 	//create wallet for user
-	user.Wallet= helpers.CreateWallet()
+	user.Wallet=strconv.Itoa( helpers.CreateWallet())
 
 	helpers.Response(c, "account created successfully", 201, nil, nil)
 }
