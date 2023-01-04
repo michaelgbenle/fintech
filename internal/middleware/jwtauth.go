@@ -1,5 +1,15 @@
 package middleware
 
+import (
+	"fmt"
+	"log"
+	"time"
+
+	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
+	"github.com/michaelgbenle/fintech/internal/helpers"
+)
+
 const AccessTokenValidity = time.Hour * 24
 const RefreshTokenValidity = time.Hour * 24
 
@@ -23,20 +33,7 @@ func GenerateClaims(email string) (jwt.MapClaims, jwt.MapClaims) {
 	return accessClaims, refreshClaims
 }
 
-func GeneratePhoneNumberClaims(number string) (jwt.MapClaims, jwt.MapClaims) {
-	log.Println("generate  claim function", number)
-	accessClaims := jwt.MapClaims{
-		"phone_number": number,
-		"exp":          time.Now().Add(AccessTokenValidity).Unix(),
-	}
 
-	refreshClaims := jwt.MapClaims{
-		"exp": time.Now().Add(RefreshTokenValidity).Unix(),
-		"sub": 1,
-	}
-
-	return accessClaims, refreshClaims
-}
 
 // GenerateToken generates only an access token
 func GenerateToken(signMethod *jwt.SigningMethodHMAC, claims jwt.MapClaims, secret *string) (*string, error) {

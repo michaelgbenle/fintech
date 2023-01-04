@@ -12,7 +12,7 @@ import (
 func AuthorizeUser(findUserByEmail func(string) (*models.User, error), tokenInBlacklist func(*string) bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		var student *models.User
+		var user *models.User
 		var errors error
 		secret := os.Getenv("JWT_SECRET")
 		accToken := GetTokenFromHeader(c)
@@ -28,7 +28,7 @@ func AuthorizeUser(findUserByEmail func(string) (*models.User, error), tokenInBl
 		}
 
 		if email, ok := accessClaims["user_email"].(string); ok {
-			if student, errors = findStudentByEmail(email); errors != nil {
+			if user, errors = findUserByEmail(email); errors != nil {
 				log.Printf("find user by email errors: %v\n", err)
 				RespondAndAbort(c, "", http.StatusNotFound, nil, []string{"user not found"})
 				return
@@ -40,7 +40,7 @@ func AuthorizeUser(findUserByEmail func(string) (*models.User, error), tokenInBl
 		}
 
 		// set the user and token as context parameters.
-		c.Set("user", student)
+		c.Set("user", user)
 		c.Set("access_token", accessToken.Raw)
 
 		// calling next handler
