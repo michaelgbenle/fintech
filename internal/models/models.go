@@ -25,13 +25,19 @@ func (m *Model) BeforeCreate(tx *gorm.DB) (err error) {
 
 
 type Blacklist struct {
-	Email     string
-	Token     string
-	CreatedAt string
+	Email     string `json:"email"`
+	Token     string `json:"token"`
+	CreatedAt string `json:"created_at"`
 }
 
-type Transaction struct {}
+type Transaction struct {
+	Model
+	CustomerId uint   `json:"customer_id"`
+	AccountNos string `json:"account_nos"`
+	Type       string `json:"type"`
+	Success    bool   `json:"success"`
+}
 type Money struct {
-	Wallet string
-	Amount float64
+	AccountNos string  `json:"account_nos" binding:"required"` 
+	Amount float64 `json:"amount" binding:"required"`
 }

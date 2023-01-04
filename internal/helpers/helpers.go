@@ -34,3 +34,7 @@ func CreateWallet() int {
 func CompareCode(a, b int) bool {
 	return a == b
 }
+
+func ValidateAccountNumber(accountNos string) bool {
+	return len(accountNos) == 10
+}

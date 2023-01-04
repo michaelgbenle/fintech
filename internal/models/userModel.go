@@ -16,8 +16,8 @@ type User struct {
 	Wallet    
 }
 type Wallet struct {
-	AccountNos string `json:"account_no"`
-	Balance    int    `json:"balance"`
+	AccountNos string `json:"account_nos"`
+	Balance    float64    `json:"balance"`
 }
 
 func (user *User) HashPassword() error {

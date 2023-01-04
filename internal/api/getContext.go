@@ -7,7 +7,7 @@ import (
 	"github.com/michaelgbenle/fintech/internal/models"
 )
 
-func (u *HTTPHandler) GetStudentFromContext(c *gin.Context) (*models.User, error) {
+func (u *HTTPHandler) GetUserFromContext(c *gin.Context) (*models.User, error) {
 	contextUser, exists := c.Get("user")
 	if !exists {
 		return nil, fmt.Errorf("error getting user from context")
