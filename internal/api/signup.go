@@ -36,5 +36,12 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	//create wallet for user
 	user.Wallet=strconv.Itoa( helpers.CreateWallet())
 
+	//save user to database
+	err = u.Repository.CreateUser(user)
+	if err != nil {
+		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
+		return
+	}
+
 	helpers.Response(c, "account created successfully", 201, nil, nil)
 }
