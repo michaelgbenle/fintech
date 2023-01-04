@@ -25,7 +25,11 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
 		return
 	}
-
+	//hash pin
+	err = user.HashPin()
+	if err != nil {
+		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
+	}
 
 	helpers.Response(c, "account created successfully", 201, nil, nil)
 }

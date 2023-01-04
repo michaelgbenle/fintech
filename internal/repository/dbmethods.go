@@ -49,3 +49,7 @@ func (p *Postgres) FindUserById(Id string) (*models.User, error) {
 	}
 	return user, nil
 }
+
+func (p *Postgres) CreateUser(user models.User)  error{
+
+}
