@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
@@ -27,12 +28,34 @@ if userErr != nil {
 }
 
 //check if password is correct
-if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(studentLoginRequest.Password)); err != nil {
+if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginRequest.Password)); err != nil {
 	helpers.Response(c, "invalid Password", http.StatusBadRequest, nil, []string{"Bad Request"})
 	return
 }
 
+	// Generates access claims and refresh claims
+	accessClaims, refreshClaims := middleware.GenerateClaims(student.Email)
 
+	secret := os.Getenv("JWT_SECRET")
+	accToken, err := middleware.GenerateToken(jwt.SigningMethodHS256, accessClaims, &secret)
+	if err != nil {
+		log.Printf("token generation error err: %v\n", err)
+		helpers.Response(c, "", http.StatusInternalServerError, nil, []string{"internal server error"})
+		return
+	}
 
-	helpers.Response(c, "login successful", 200, nil, nil)
+	refreshToken, err := middleware.GenerateToken(jwt.SigningMethodHS256, refreshClaims, &secret)
+	if err != nil {
+		log.Printf("token generation error err: %v\n", err)
+		helpers.Response(c, "", http.StatusInternalServerError, nil, []string{"internal server error"})
+		return
+	}
+	c.Header("refresh_token", *refreshToken)
+	c.Header("access_token", *accToken)
+
+	helpers.Response(c, "login successful", http.StatusOK, gin.H{
+		"user":          student,
+		"access_token":  *accToken,
+		"refresh_token": *refreshToken,
+	}, nil)
 }
