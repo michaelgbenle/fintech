@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
+	"github.com/michaelgbenle/fintech/internal/middleware"
 	"github.com/michaelgbenle/fintech/internal/models"
 	"golang.org/x/crypto/bcrypt"
 )
