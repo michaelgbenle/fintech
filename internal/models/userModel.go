@@ -36,5 +36,4 @@ func (user *User) HashPin() error {
 func (user *User) ValidateEmail() bool {
 	emailRegexp := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{5,50}$`)
 	return emailRegexp.MatchString(user.Email)
-
 }
