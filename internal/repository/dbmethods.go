@@ -51,5 +51,10 @@ func (p *Postgres) FindUserById(Id string) (*models.User, error) {
 }
 
 func (p *Postgres) CreateUser(user models.User)  error{
-
+	err := p.DB.Create(&user).Error
+	if err != nil {
+		log.Println("error in creating user")
+		return err
+	}
+return nil
 }
