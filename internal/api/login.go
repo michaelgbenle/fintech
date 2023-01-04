@@ -7,5 +7,6 @@ import (
 
 func (u *HTTPHandler) LoginHandler(c *gin.Context) {
 
-	helpers.Response(c, "account created successfully", 201, nil, nil)
+
+	helpers.Response(c, "login successful", 200, nil, nil)
 }
