@@ -1,6 +1,10 @@
 package models
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"regexp"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
 	Model
@@ -27,4 +31,10 @@ func (user *User) HashPin() error {
 	}
 	user.Pin = string(hashedPin)
 	return nil
+}
+
+func (user *User) ValidateEmail() bool {
+	emailRegexp := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{5,50}$`)
+	return emailRegexp.MatchString(user.Email)
+
 }
