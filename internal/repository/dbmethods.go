@@ -41,3 +41,11 @@ func (p *Postgres) FindUserByEmail(email string) (*models.User, error) {
 	}
 	return user, nil
 }
+
+func (p *Postgres) FindUserById(Id string) (*models.User, error) {
+	user := &models.User{}
+	if err := p.DB.Where("id = ?", Id).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
+}
