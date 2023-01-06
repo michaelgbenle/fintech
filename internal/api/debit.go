@@ -14,5 +14,12 @@ func (u *HTTPHandler) DebitHandler(c *gin.Context) {
 		return
 	}
 
+	debit := &models.Money{}
+	err = c.ShouldBindJSON(&credit)
+	if err != nil {
+		helpers.Response(c, "error", 400, nil, []string{"invalid request"})
+		return
+	}
+
 	helpers.Response(c, "account debited successfully", 201, nil, nil)
 }
