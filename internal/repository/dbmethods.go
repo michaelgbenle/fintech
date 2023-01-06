@@ -71,13 +71,16 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User)  (*m
 	accountNos, amount := money.AccountNos, money.Amount
 	user, _ := p.FindUserByAccountNos(accountNos)
 
+//Begin transaction to credit user
 	err := p.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Model(&user).Update("balance", user.Balance + amount).Error; err != nil {
-			return err
-		}
 		if err := tx.Model(&creditor).Update("balance", creditor.Balance - amount).Error; err != nil {
 			return err
 		}
+		
+		if err := tx.Model(&user).Update("balance", user.Balance + amount).Error; err != nil {
+			return err
+		}
+		
 		return nil
 	})
 	if err != nil {

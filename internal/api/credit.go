@@ -32,6 +32,12 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 		return
 	}
 
+	//check for insufficient balance
+	if creditor.Balance < credit.Amount {
+		helpers.Response(c, "insufficient balance", 400, nil, []string{"insufficient balance"})
+		return
+	}
+
 	//credit user
 	_, CreditErr := u.Repository.Creditwallet(credit, creditor)
 	if CreditErr != nil {
