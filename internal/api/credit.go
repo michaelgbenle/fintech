@@ -26,6 +26,14 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 		helpers.Response(c, "error", 400, nil, []string{"invalid account number"})
 		return
 	}
+
+	//check if account number exists
+	_, err = u.Repository.FindUserByAccountNos(credit.AccountNos)
+	if err != nil {
+		helpers.Response(c, "error", 400, nil, []string{"invalid account number"})
+		return
+	}
+
 	//validate amount
 	if credit.Amount <= 0 {
 		helpers.Response(c, "error", 400, nil, []string{"invalid amount"})
@@ -45,5 +53,5 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 		return
 	}
 
-	helpers.Response(c, "account credited successfully", 201, transaction, nil)
+	helpers.Response(c, "account credited successfully", 200, transaction, nil)
 }

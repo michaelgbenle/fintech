@@ -69,7 +69,10 @@ return nil
 }
 func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User)  (*models.Transaction,error){
 	accountNos, amount := money.AccountNos, money.Amount
-	user, _ := p.FindUserByAccountNos(accountNos)
+	user, findErr := p.FindUserByAccountNos(accountNos)
+	if findErr != nil {
+		return nil,findErr
+	}
 
 //Begin transaction to credit user
 	err := p.DB.Transaction(func(tx *gorm.DB) error {
