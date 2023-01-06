@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"os/user"
 
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
@@ -37,7 +38,7 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 		helpers.Response(c, "insufficient balance", 400, nil, []string{"insufficient balance"})
 		return
 	}
-
+user.Current()
 	//credit user
 	_, CreditErr := u.Repository.Creditwallet(credit, creditor)
 	if CreditErr != nil {
