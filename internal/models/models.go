@@ -1,7 +1,6 @@
 package models
 
 import (
-	"errors"
 	"time"
 
 	"github.com/google/uuid"
@@ -9,17 +8,17 @@ import (
 )
 
 type Model struct {
-	Id        string    `gorm:"primary_key; unique; type:uuid; column:id; default:uuid_generate_v4()"`
+	Id        uuid.UUID    `gorm:"primary_key; unique; type:uuid; column:id; default:uuid_generate_v4()"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
 func (m *Model) BeforeCreate(tx *gorm.DB) (err error) {
-	m.Id = uuid.New().String()
-	if m.Id == "" {
-		err = errors.New("can't save invalid data")
-	}
+	m.Id = uuid.New()
+	// if m.Id == nil {
+	// 	err = errors.New("can't save invalid data")
+	// }
 	return
 }
 

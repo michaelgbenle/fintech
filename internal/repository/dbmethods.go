@@ -91,7 +91,7 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User) (*mo
 	}
 
 	transaction := models.Transaction{
-		CustomerId: user.Id,
+		CustomerId: user.Id.String(),
 		AccountNos: money.AccountNos,
 		Type:       "credit",
 		Success:    true,
