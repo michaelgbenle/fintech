@@ -39,11 +39,11 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 	}
 
 	//credit user
-	_, CreditErr := u.Repository.Creditwallet(credit, creditor)
+	transaction, CreditErr := u.Repository.Creditwallet(credit, creditor)
 	if CreditErr != nil {
 		helpers.Response(c, "unable to credit user", 500, nil, []string{"credit error"})
 		return
 	}
 
-	helpers.Response(c, "account created successfully", 201, nil, nil)
+	helpers.Response(c, "account credited successfully", 201, transaction, nil)
 }
