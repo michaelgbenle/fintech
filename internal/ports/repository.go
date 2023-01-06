@@ -7,6 +7,6 @@ type Repository interface {
 	TokenInBlacklist(token *string) bool
 	FindUserById(Id string) (*models.User, error)
 	FindUserByAccountNos(account string) (*models.User, error)
-	CreateUser(user *models.User)  error
-	Creditwallet(money *models.Money, creditor *models.User)  (*models.Transaction,error)
+	CreateUser(user *models.User) error
+	Creditwallet(money *models.Money, creditor *models.User) (*models.Transaction, error)
 }

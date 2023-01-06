@@ -59,47 +59,47 @@ func (p *Postgres) FindUserByAccountNos(account string) (*models.User, error) {
 	return user, nil
 }
 
-func (p *Postgres) CreateUser(user *models.User)  error{
+func (p *Postgres) CreateUser(user *models.User) error {
 	err := p.DB.Create(&user).Error
 	if err != nil {
 		log.Println("error in creating user")
 		return err
 	}
-return nil
+	return nil
 }
-func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User)  (*models.Transaction,error){
+func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User) (*models.Transaction, error) {
 	accountNos, amount := money.AccountNos, money.Amount
 	user, findErr := p.FindUserByAccountNos(accountNos)
 	if findErr != nil {
-		return nil,findErr
+		return nil, findErr
 	}
 
-//Begin transaction to credit user
+	//Begin transaction to credit user
 	err := p.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Model(&creditor).Update("balance", creditor.Balance - amount).Error; err != nil {
+		if err := tx.Model(&creditor).Update("balance", creditor.Balance-amount).Error; err != nil {
 			return err
 		}
-		
-		if err := tx.Model(&user).Update("balance", user.Balance + amount).Error; err != nil {
+
+		if err := tx.Model(&user).Update("balance", user.Balance+amount).Error; err != nil {
 			return err
 		}
-		
+
 		return nil
 	})
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	transaction := models.Transaction{
-		CustomerId:user.Id ,
+		CustomerId: user.Id,
 		AccountNos: money.AccountNos,
-		Type: "credit",
-		Success: true,
+		Type:       "credit",
+		Success:    true,
 	}
 	err = p.DB.Create(&transaction).Error
 	if err != nil {
 		log.Println("error in creating user")
-		return nil,err
+		return nil, err
 	}
-	return &transaction,nil
+	return &transaction, nil
 }

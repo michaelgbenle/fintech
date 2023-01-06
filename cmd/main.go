@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/michaelgbenle/fintech/cmd/server"
 	"github.com/michaelgbenle/fintech/internal/repository"
 )
@@ -11,6 +13,7 @@ func main() {
 
 	//Initializes the database
 	db, err := repository.Initialize(env.DbUrl)
+	log.Println(env.DbUrl)
 	if err != nil {
 		return
 	}

@@ -13,11 +13,11 @@ type User struct {
 	Email     string `json:"email" binding:"required" gorm:"unique"`
 	Password  string `json:"password" binding:"required"`
 	Pin       string `json:"pin" binding:"required"`
-	Wallet    
+	Wallet
 }
 type Wallet struct {
-	AccountNos string `json:"account_nos"`
-	Balance    float64    `json:"balance"`
+	AccountNos string  `json:"account_nos"`
+	Balance    float64 `json:"balance"`
 }
 
 func (user *User) HashPassword() error {

@@ -23,8 +23,8 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 	}
 	//validate amount
 	if credit.Amount <= 0 {
-			helpers.Response(c, "error", 400, nil, []string{"invalid amount"})
-			return
+		helpers.Response(c, "error", 400, nil, []string{"invalid amount"})
+		return
 	}
 
 	//validate account number

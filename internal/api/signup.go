@@ -33,7 +33,7 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	if err != nil {
 		helpers.Response(c, "error", 500, nil, []string{"internal server error"})
 	}
-	
+
 	//create wallet for user
 	user.Wallet.AccountNos = strconv.Itoa(helpers.CreateWallet())
 	user.Wallet.Balance = 0
@@ -46,5 +46,5 @@ func (u *HTTPHandler) SignUpHandler(c *gin.Context) {
 	}
 
 	//sign up successful
-	helpers.Response(c,"sign up successful", 201, nil, nil)
+	helpers.Response(c, "sign up successful", 201, nil, nil)
 }
