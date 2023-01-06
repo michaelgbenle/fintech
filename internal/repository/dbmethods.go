@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/jinzhu/gorm"
 	"github.com/michaelgbenle/fintech/internal/models"
 )
 
@@ -50,6 +51,14 @@ func (p *Postgres) FindUserById(Id string) (*models.User, error) {
 	return user, nil
 }
 
+func (p *Postgres) FindUserByAccountNos(account string) (*models.User, error) {
+	user := &models.User{}
+	if err := p.DB.Where("account_nos = ?", account).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
 func (p *Postgres) CreateUser(user *models.User)  error{
 	err := p.DB.Create(&user).Error
 	if err != nil {
@@ -58,11 +67,24 @@ func (p *Postgres) CreateUser(user *models.User)  error{
 	}
 return nil
 }
-func (p *Postgres) Creditwallet(money *models.Money)  (*models.Transaction,error){
-	transaction := models.Transaction{}
-	transaction.AccountNos = money.AccountNos
-	transaction.Type = "credit"
-	transaction.Success = true
+func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User)  (*models.Transaction,error){
+	accountNos, amount := money.AccountNos, money.Amount
+	user, _ := p.FindUserByAccountNos(accountNos)
+	transaction := models.Transaction{
+		CustomerId:user.Id ,
+		AccountNos: money.AccountNos,
+		Type: "credit",
+		Success: true,
+	}
+	p.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&creditor).Update("balance", creditor.Balance + amount).Error; err != nil {
+			return err
+		}
+		if err := tx.Model(&user).Update("balance", user.Balance - amount).Error; err != nil {
+			return err
+		}
+		return nil
+	})
 	err := p.DB.Create(&transaction).Error
 	if err != nil {
 		log.Println("error in creating user")

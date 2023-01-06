@@ -9,7 +9,7 @@ import (
 )
 
 func (u *HTTPHandler) CreditHandler(c *gin.Context) {
-	_, err := u.GetUserFromContext(c)
+	creditor, err := u.GetUserFromContext(c)
 	if err != nil {
 		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
 		return
@@ -33,7 +33,7 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 	}
 
 	//credit user
-	_, CreditErr := u.Repository.Creditwallet(credit)
+	_, CreditErr := u.Repository.Creditwallet(credit, creditor)
 	if CreditErr != nil {
 		helpers.Response(c, "unable to credit user", 500, nil, []string{"credit error"})
 		return

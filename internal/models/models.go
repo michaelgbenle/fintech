@@ -32,7 +32,7 @@ type Blacklist struct {
 
 type Transaction struct {
 	Model
-	CustomerId uint   `json:"customer_id"`
+	CustomerId string   `json:"customer_id"`
 	AccountNos string `json:"account_nos"`
 	Type       string `json:"type"`
 	Success    bool   `json:"success"`
