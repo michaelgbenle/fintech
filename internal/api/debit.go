@@ -7,5 +7,6 @@ import (
 
 func (u *HTTPHandler) DebitHandler(c *gin.Context) {
 
-	helpers.Response(c, "account created successfully", 201, nil, nil)
+	
+	helpers.Response(c, "account debited successfully", 201, nil, nil)
 }
