@@ -30,7 +30,7 @@ func (u *HTTPHandler) CreditHandler(c *gin.Context) {
 	//check if account number exists
 	_, err = u.Repository.FindUserByAccountNos(credit.AccountNos)
 	if err != nil {
-		helpers.Response(c, "error", 400, nil, []string{"invalid account number"})
+		helpers.Response(c, "error", 400, nil, []string{"account number does not exist"})
 		return
 	}
 
