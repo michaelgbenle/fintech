@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
+	"github.com/michaelgbenle/fintech/internal/models"
 )
 
 func (u *HTTPHandler) DebitHandler(c *gin.Context) {
