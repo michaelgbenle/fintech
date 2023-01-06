@@ -70,13 +70,8 @@ return nil
 func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User)  (*models.Transaction,error){
 	accountNos, amount := money.AccountNos, money.Amount
 	user, _ := p.FindUserByAccountNos(accountNos)
-	transaction := models.Transaction{
-		CustomerId:user.Id ,
-		AccountNos: money.AccountNos,
-		Type: "credit",
-		Success: true,
-	}
-	p.DB.Transaction(func(tx *gorm.DB) error {
+
+	err := p.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Model(&creditor).Update("balance", creditor.Balance + amount).Error; err != nil {
 			return err
 		}
@@ -85,7 +80,17 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User)  (*m
 		}
 		return nil
 	})
-	err := p.DB.Create(&transaction).Error
+	if err != nil {
+		return nil,err
+	}
+
+	transaction := models.Transaction{
+		CustomerId:user.Id ,
+		AccountNos: money.AccountNos,
+		Type: "credit",
+		Success: true,
+	}
+	err = p.DB.Create(&transaction).Error
 	if err != nil {
 		log.Println("error in creating user")
 		return nil,err
