@@ -2,7 +2,6 @@ package api
 
 import (
 	"net/http"
-	"os/user"
 
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
