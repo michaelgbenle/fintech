@@ -8,16 +8,12 @@ import (
 )
 
 func (u *HTTPHandler) GetUserByAccountNumber(c *gin.Context) {
-	user, err := u.GetUserFromContext(c)
+	
+	user, err := u.Repository.FindUserByAccountNos(c.Query("accountNumber"))
 	if err != nil {
-		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
-		return
-	}
-	transactions, err := u.Repository.GetTransactions(user)
-	if err != nil {
-		helpers.Response(c, "error", 500, nil, []string{"error getting transactions"})
+		helpers.Response(c, "error", 500, nil, []string{"error getting user"})
 		return
 	}
 
-	helpers.Response(c, "transactions", 201, transactions, nil)
+	helpers.Response(c, "transactions", 201, user, nil)
 }
