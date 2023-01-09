@@ -35,7 +35,7 @@ if !helpers.ValidateAccountNumber(debit.AccountNos) {
 }
 
 //check if account number exists
-_, err = u.Repository.FindUserByAccountNos(credit.AccountNos)
+_, err = u.Repository.FindUserByAccountNos(debit.AccountNos)
 if err != nil {
 	helpers.Response(c, "error", 400, nil, []string{"account number does not exist"})
 	return
