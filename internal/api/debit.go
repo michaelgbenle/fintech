@@ -22,5 +22,31 @@ func (u *HTTPHandler) DebitHandler(c *gin.Context) {
 		return
 	}
 
+//validate amount
+if credit.Amount <= 0 {
+	helpers.Response(c, "error", 400, nil, []string{"invalid amount"})
+	return
+}
+
+//validate account number
+if !helpers.ValidateAccountNumber(credit.AccountNos) {
+	helpers.Response(c, "error", 400, nil, []string{"invalid account number"})
+	return
+}
+
+//check if account number exists
+_, err = u.Repository.FindUserByAccountNos(credit.AccountNos)
+if err != nil {
+	helpers.Response(c, "error", 400, nil, []string{"account number does not exist"})
+	return
+}
+
+//check for insufficient balance
+if creditor.Balance < credit.Amount {
+	helpers.Response(c, "insufficient balance", 400, nil, []string{"insufficient balance"})
+	return
+}
+
+
 	helpers.Response(c, "account debited successfully", 201, nil, nil)
 }
