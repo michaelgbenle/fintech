@@ -90,7 +90,7 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User) (*mo
 		transaction := models.Transaction{
 			CustomerId: user.Id.String(),
 			AccountNos: money.AccountNos,
-			Type:       "debit",
+			Type:       "credit",
 			Success:    false,
 		}
 		return &transaction, err
@@ -115,7 +115,13 @@ func (p *Postgres) Debitwallet(money *models.Money, debiter *models.User) (*mode
 	accountNos, amount := money.AccountNos, money.Amount
 	user, findErr := p.FindUserByAccountNos(accountNos)
 	if findErr != nil {
-		return nil, findErr
+		transaction := models.Transaction{
+			CustomerId: user.Id.String(),
+			AccountNos: money.AccountNos,
+			Type:       "debit",
+			Success:    false,
+		}
+		return &transaction, findErr
 	}
 
 	//Begin transaction to debit user
