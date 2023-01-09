@@ -23,7 +23,7 @@ func (u *HTTPHandler) DebitHandler(c *gin.Context) {
 	}
 
 //validate amount
-if credit.Amount <= 0 {
+if debit.Amount <= 0 {
 	helpers.Response(c, "error", 400, nil, []string{"invalid amount"})
 	return
 }
