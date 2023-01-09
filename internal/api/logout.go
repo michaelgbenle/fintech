@@ -1,6 +1,6 @@
 package api
 
-func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
+func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 	user, err := u.GetUserFromContext(c)
 	if err != nil {
 		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
