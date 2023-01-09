@@ -1,5 +1,7 @@
 package api
 
+import "github.com/michaelgbenle/fintech/internal/helpers"
+
 func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 	user, err := u.GetUserFromContext(c)
 	if err != nil {
@@ -11,7 +13,6 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 		helpers.Response(c, "error", 500, nil, []string{"error getting transactions"})
 		return
 	}
-
 
 	helpers.Response(c, "transactions", 201, transactions, nil)
 }
