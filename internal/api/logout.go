@@ -1,6 +1,9 @@
 package api
 
-import "github.com/michaelgbenle/fintech/internal/helpers"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/michaelgbenle/fintech/internal/helpers"
+)
 
 func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 	user, err := u.GetUserFromContext(c)
