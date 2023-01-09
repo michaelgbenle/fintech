@@ -13,5 +13,5 @@ func (u *HTTPHandler) GetUserByAccountNumber(c *gin.Context) {
 		return
 	}
 
-	helpers.Response(c, "transactions", 201, user, nil)
+	helpers.Response(c, "user", 201, user, nil)
 }
