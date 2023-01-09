@@ -47,6 +47,13 @@ if user.Balance < debit.Amount {
 	return
 }
 
+	//debit user
+	transaction, CreditErr := u.Repository.Creditwallet(credit, creditor)
+	if CreditErr != nil {
+		helpers.Response(c, "unable to credit user", 500, nil, []string{"credit error"})
+		return
+	}
 
-	helpers.Response(c, "account debited successfully", 201, nil, nil)
+
+	helpers.Response(c, "account debited successfully", 201, transaction, nil)
 }
