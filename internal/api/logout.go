@@ -24,7 +24,7 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 		helpers.Response(c, "error getting access token", http.StatusInternalServerError, nil, []string{"internal error"})
 		return
 	}
-	token, err := jwt.ParseWithClaims(tokenstr, &middleware.Claims{}, func(t *jwt.Token) (interface{}, error) {
+	token, _ := jwt.ParseWithClaims(tokenstr, &middleware.Claims{}, func(t *jwt.Token) (interface{}, error) {
 		if t.Method.Alg() != jwt.SigningMethodHS256.Alg() {
 			return nil, fmt.Errorf("invalid signing algorithm")
 		}
