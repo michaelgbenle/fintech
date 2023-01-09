@@ -43,8 +43,6 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 		helpers.Response(c, "error inserting token into database", http.StatusInternalServerError, nil, []string{"Claims not valid type"})
 		return
 	}
-
-
+	
 	helpers.Response(c, "log out successful", 201, nil, nil)
-
 }
