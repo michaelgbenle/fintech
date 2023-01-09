@@ -6,6 +6,11 @@ import (
 )
 
 func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
+	debiter, err := u.GetUserFromContext(c)
+	if err != nil {
+		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
+		return
+	}
 	transactions, err := u.Repository.GetTransactions()
 	if err != nil {
 		helpers.Response(c, "error", 500, nil, []string{"error getting transactions"})
