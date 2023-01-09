@@ -40,7 +40,7 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 
 	err = u.Repository.AddTokenToBlacklist(user.Email, tokenstr)
 	if err != nil {
-		helpers.JSON(c, "error inserting token into database", http.StatusInternalServerError, nil, []string{"Claims not valid type"})
+		helpers.Response(c, "error inserting token into database", http.StatusInternalServerError, nil, []string{"Claims not valid type"})
 		return
 	}
 
