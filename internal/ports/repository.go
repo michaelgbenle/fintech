@@ -10,4 +10,5 @@ type Repository interface {
 	CreateUser(user *models.User) error
 	Creditwallet(money *models.Money, creditor *models.User) (*models.Transaction, error)
 	Debitwallet(money *models.Money, debiter *models.User) (*models.Transaction, error) 
+	GetTransactions(user *models.User) (*[]models.Transaction, error)
 }
