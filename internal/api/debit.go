@@ -29,7 +29,7 @@ if debit.Amount <= 0 {
 }
 
 //validate account number
-if !helpers.ValidateAccountNumber(credit.AccountNos) {
+if !helpers.ValidateAccountNumber(debit.AccountNos) {
 	helpers.Response(c, "error", 400, nil, []string{"invalid account number"})
 	return
 }
