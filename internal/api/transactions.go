@@ -6,6 +6,12 @@ import (
 )
 
 func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
+	transactions, err := u.Repository.GetTransactions()
+	if err != nil {
+		helpers.Response(c, "error", 500, nil, []string{"error getting transactions"})
+		return
+	}
 
-	helpers.Response(c, "account created successfully", 201, nil, nil)
+
+	helpers.Response(c, "transactions", 201, transactions, nil)
 }
