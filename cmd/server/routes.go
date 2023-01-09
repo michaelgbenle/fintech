@@ -25,6 +25,7 @@ func SetupRouter(handler *api.HTTPHandler, repository ports.Repository) *gin.Eng
 	r := router.Group("/api/v1")
 	{
 		r.GET("/ping", handler.PingHandler)
+		r.GET("/user", handler.GetUserByAccountNumber)
 		r.POST("/register", handler.SignUpHandler)
 		r.POST("/login", handler.LoginHandler)
 	}
@@ -36,6 +37,7 @@ func SetupRouter(handler *api.HTTPHandler, repository ports.Repository) *gin.Eng
 		authorizeUser.PATCH("credit", handler.CreditHandler)
 		authorizeUser.PATCH("debit", handler.DebitHandler)
 		authorizeUser.GET("transactions", handler.TransactionsHandler)
+		authorizeUser.POST("logout", handler.LogoutHandler)
 
 	}
 
