@@ -1,6 +1,12 @@
 package api
 
-func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func (u *HTTPHandler) GetUserByAccountNumber(c *gin.Context) {
 	user, err := u.GetUserFromContext(c)
 	if err != nil {
 		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
@@ -11,7 +17,6 @@ func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
 		helpers.Response(c, "error", 500, nil, []string{"error getting transactions"})
 		return
 	}
-
 
 	helpers.Response(c, "transactions", 201, transactions, nil)
 }
