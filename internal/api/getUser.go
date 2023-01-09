@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/michaelgbenle/fintech/internal/helpers"
 )
 
 func (u *HTTPHandler) GetUserByAccountNumber(c *gin.Context) {
