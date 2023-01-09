@@ -93,7 +93,7 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User) (*mo
 			Type:       "debit",
 			Success:    false,
 		}
-		return nil, err
+		return &transaction, err
 	}
 
 	transaction := models.Transaction{
