@@ -35,14 +35,14 @@ if !helpers.ValidateAccountNumber(debit.AccountNos) {
 }
 
 //check if account number exists
-_, err = u.Repository.FindUserByAccountNos(debit.AccountNos)
+user, err := u.Repository.FindUserByAccountNos(debit.AccountNos)
 if err != nil {
 	helpers.Response(c, "error", 400, nil, []string{"account number does not exist"})
 	return
 }
 
 //check for insufficient balance
-if creditor.Balance < credit.Amount {
+if user.Balance < debit.Amount {
 	helpers.Response(c, "insufficient balance", 400, nil, []string{"insufficient balance"})
 	return
 }
