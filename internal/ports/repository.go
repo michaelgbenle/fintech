@@ -9,4 +9,5 @@ type Repository interface {
 	FindUserByAccountNos(account string) (*models.User, error)
 	CreateUser(user *models.User) error
 	Creditwallet(money *models.Money, creditor *models.User) (*models.Transaction, error)
+	Debitwallet(money *models.Money, debiter *models.User) (*models.Transaction, error) 
 }

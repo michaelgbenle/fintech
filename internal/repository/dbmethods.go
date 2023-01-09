@@ -103,3 +103,41 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User) (*mo
 	}
 	return &transaction, nil
 }
+
+
+func (p *Postgres) Debitwallet(money *models.Money, debiter *models.User) (*models.Transaction, error) {
+	accountNos, amount := money.AccountNos, money.Amount
+	user, findErr := p.FindUserByAccountNos(accountNos)
+	if findErr != nil {
+		return nil, findErr
+	}
+
+	//Begin transaction to debit user
+	err := p.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&user).Update("balance", user.Balance-amount).Error; err != nil {
+			return err
+		}
+
+		if err := tx.Model(&user).Update("balance", user.Balance+amount).Error; err != nil {
+			return err
+		}
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	transaction := models.Transaction{
+		CustomerId: user.Id.String(),
+		AccountNos: money.AccountNos,
+		Type:       "credit",
+		Success:    true,
+	}
+	err = p.DB.Create(&transaction).Error
+	if err != nil {
+		log.Println("error in creating user")
+		return nil, err
+	}
+	return &transaction, nil
+}
