@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/michaelgbenle/fintech/internal/helpers"
+	"github.com/michaelgbenle/fintech/internal/middleware"
 )
 
 func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
