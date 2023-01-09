@@ -13,7 +13,7 @@ func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
 		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
 		return
 	}
-	transactions, err := u.Repository.GetTransactions()
+	transactions, err := u.Repository.GetTransactions(user)
 	if err != nil {
 		helpers.Response(c, "error", 500, nil, []string{"error getting transactions"})
 		return
