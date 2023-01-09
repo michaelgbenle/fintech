@@ -21,6 +21,6 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 	}
 
 
-	helpers.Response(c, "transactions", 201, nil, nil)
+	helpers.Response(c, "log out successful", 201, nil, nil)
 
 }
