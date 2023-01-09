@@ -14,7 +14,7 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 		return
 	}
 
-	foodBeneficiary, err := u.GetUserFromContext(c)
+	user, err := u.GetUserFromContext(c)
 	if err != nil {
 		helpers.JSON(c, "error getting access token", http.StatusBadRequest, nil, []string{"bad request"})
 		return
