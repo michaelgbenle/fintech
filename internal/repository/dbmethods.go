@@ -118,7 +118,7 @@ func (p *Postgres) Debitwallet(money *models.Money, debiter *models.User) (*mode
 			return err
 		}
 
-		if err := tx.Model(&user).Update("balance", user.Balance+amount).Error; err != nil {
+		if err := tx.Model(&debiter).Update("balance", debiter.Balance+amount).Error; err != nil {
 			return err
 		}
 
