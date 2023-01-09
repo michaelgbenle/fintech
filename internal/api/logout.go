@@ -8,9 +8,9 @@ import (
 )
 
 func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
-	_, err := u.GetUserFromContext(c)
+	tokenstr, err := u.GetTokenFromContext(c)
 	if err != nil {
-		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
+		helpers.JSON(c, "error getting access token", http.StatusBadRequest, nil, []string{"bad request"})
 		return
 	}
 
