@@ -168,7 +168,7 @@ func (p *Postgres) Debitwallet(money *models.Money, debiter *models.User) (*mode
 
 func (p *Postgres) GetTransactions(user *models.User) (*[]models.Transaction, error) {
 	transactions := &[]models.Transaction{}
-	if err := p.DB.Find(&transactions).Error; err != nil {
+	if err := p.DB.Where("account_nos= ?", user.AccountNos).Find(&transactions).Error; err != nil {
 		return nil, err
 	}
 	return transactions, nil
