@@ -11,4 +11,5 @@ type Repository interface {
 	Creditwallet(money *models.Money, creditor *models.User) (*models.Transaction, error)
 	Debitwallet(money *models.Money, debiter *models.User) (*models.Transaction, error) 
 	GetTransactions(user *models.User) (*[]models.Transaction, error)
+	AddTokenToBlacklist(email string, token string) error
 }
