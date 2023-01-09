@@ -20,7 +20,7 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 
 	user, err := u.GetUserFromContext(c)
 	if err != nil {
-		helpers.Response(c, "error getting access token", http.StatusInternalServerError, nil, []string{"bad request"})
+		helpers.Response(c, "error getting access token", http.StatusInternalServerError, nil, []string{"internal error"})
 		return
 	}
 	token, err := jwt.ParseWithClaims(tokenstr, &middleware.Claims{}, func(t *jwt.Token) (interface{}, error) {
