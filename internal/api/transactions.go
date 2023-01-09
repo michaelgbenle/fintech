@@ -1,12 +1,14 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/michaelgbenle/fintech/internal/helpers"
 )
 
 func (u *HTTPHandler) TransactionsHandler(c *gin.Context) {
-	debiter, err := u.GetUserFromContext(c)
+	user, err := u.GetUserFromContext(c)
 	if err != nil {
 		helpers.Response(c, "Unauthorized", http.StatusUnauthorized, nil, []string{"unauthorized"})
 		return
