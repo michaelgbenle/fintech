@@ -38,7 +38,7 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 		claims.StandardClaims.ExpiresAt = time.Now().Add(-time.Hour).Unix()
 	}
 
-	err = u.UserService.AddTokenToBlacklist(foodBeneficiary.Email, tokenstr)
+	err = u.repository.AddTokenToBlacklist(foodBeneficiary.Email, tokenstr)
 	if err != nil {
 		helpers.JSON(c, "error inserting token into database", http.StatusInternalServerError, nil, []string{"Claims not valid type"})
 		return
