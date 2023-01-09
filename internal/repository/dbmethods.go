@@ -87,6 +87,12 @@ func (p *Postgres) Creditwallet(money *models.Money, creditor *models.User) (*mo
 		return nil
 	})
 	if err != nil {
+		transaction := models.Transaction{
+			CustomerId: user.Id.String(),
+			AccountNos: money.AccountNos,
+			Type:       "debit",
+			Success:    false,
+		}
 		return nil, err
 	}
 
@@ -125,13 +131,19 @@ func (p *Postgres) Debitwallet(money *models.Money, debiter *models.User) (*mode
 		return nil
 	})
 	if err != nil {
-		return nil, err
+		transaction := models.Transaction{
+			CustomerId: user.Id.String(),
+			AccountNos: money.AccountNos,
+			Type:       "debit",
+			Success:    false,
+		}
+		return &transaction, err
 	}
 
 	transaction := models.Transaction{
 		CustomerId: user.Id.String(),
 		AccountNos: money.AccountNos,
-		Type:       "credit",
+		Type:       "debit",
 		Success:    true,
 	}
 	err = p.DB.Create(&transaction).Error
