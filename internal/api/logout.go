@@ -32,7 +32,7 @@ func (u *HTTPHandler) LogoutHandler(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(*middleware.Claims); !ok && !token.Valid {
-		helpers.Response(c, "error inserting claims", http.StatusBadRequest, nil, []string{"bad request"})
+		helpers.Response(c, "error inserting claims", http.StatusInternalServerError, nil, []string{"invalid claims"})
 		return
 	} else {
 		claims.StandardClaims.ExpiresAt = time.Now().Add(-time.Hour).Unix()
